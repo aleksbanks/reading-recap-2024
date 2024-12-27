@@ -22,18 +22,19 @@ const bookSchema: Schema = new Schema(
     author: { type: String, required: true },
     pages: { type: Number, required: true },
     genres: { type: [String], required: true },
-    language: { type: String, required: true },
+    language: { type: String, required: false, default: 'english' },
     format: {
       type: String,
       enum: ['ebook', 'audio', 'physical book'],
-      required: true
+      required: false,
+      default: 'ebook'
     },
     dateStart: { type: Date, required: true },
-    dateEnd: { type: Date, required: true },
-    isSmut: { type: Boolean, default: false },
-    rating: { type: Number, min: 0, max: 5 },
+    dateEnd: { type: Date, required: false },
+    isSmut: { type: String, enum: ['true', 'false', 'kinda'], default: 'true' },
+    rating: { type: Number, match: /^(\d+(\.\d{1,2})?)$/, min: 0.0, max: 5.0 },
     isBookClubChoice: { type: Boolean, default: false },
-    isQueer: { type: Boolean, default: false },
+    isQueer: { type: Boolean, default: true },
     isFirstTimeRead: { type: Boolean, default: true }
   },
   {
