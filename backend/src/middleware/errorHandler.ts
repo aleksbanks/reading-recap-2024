@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express'
 
 // Error handling middleware
 const errorHandler: (err: Error, req: Request, res: Response, next: NextFunction) => void = (err, req, res) => {
@@ -9,7 +9,7 @@ const errorHandler: (err: Error, req: Request, res: Response, next: NextFunction
     return res.status(400).json({ error: err.message })
   }
 
-  res.status(500).json({ error: 'Internal Server Error' })
+  res.status(500).json({ error: err.message })
 }
 
 export default errorHandler

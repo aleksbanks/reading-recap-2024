@@ -12,8 +12,9 @@ const PORT = process.env.PORT || 5002
 
 // Middleware
 app.use(cors())
-app.use(errorHandler)
+// app.use(errorHandler)
 app.use(express.json())
+
 // Basic route
 app.get('/', (req: Request, res: Response) => {
   res.send('Backend is working!')
@@ -24,9 +25,9 @@ mongoose
   .connect(process.env.MONGO_URI || '')
   .then(() => console.log('Connected to MongoDB'))
   .catch((err: Error) => {
-    console.error('Error connecting to MongoDB:', err);
-    process.exit(1); // Exit the process if MongoDB connection fails
-  });
+    console.error('Error connecting to MongoDB:', err)
+    process.exit(1) // Exit the process if MongoDB connection fails
+  })
 
 // Use book routes
 app.use('/api/books', bookRoutes)

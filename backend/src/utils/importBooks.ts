@@ -6,6 +6,7 @@ import Book from '../models/Book'
 import path from 'path'
 
 dotenv.config()
+// Add file here
 const filePath = path.join(__dirname, './goodreads_library_export.csv')
 // Connect to MongoDB
 mongoose
@@ -55,10 +56,11 @@ const importCSV = () => {
           rating: data['My Rating'] || 0, // "My rating" to "rating" (parse as float)
           pages: parseInt(data['Number of Pages'], 10) || 0, // "Number of Pages" to "pages" (parse as int)
           dateStart: parseDate(data['Date Added']), // "Date Added" to "dateStart"
-          dateEnd: data['Date Read'] ? new Date(data['Date Read']) : null // "Date Read" to "dateEnd"
+          dateEnd: data['Date Read'] ? new Date(data['Date Read']) : null, // "Date Read" to "dateEnd"
+          isFirstTimeRead: data['Read Count'] === '1'
         }
         // Only add books that have either dateStart or dateEnd in the current year
-        if (filterCurrentYearBooks(transformedData.dateStart, transformedData.dateEnd)) {
+        if (filterCurrentYearBooks(transformedData.dateStart, transformedData.dateEnd) || data['Read Count'] > 1) {
           results.push(transformedData)
         }
       }

@@ -31,7 +31,7 @@ const bookSchema: Schema = new Schema(
     },
     dateStart: { type: Date, required: true },
     dateEnd: { type: Date, required: false },
-    isSmut: { type: String, enum: ['true', 'false', 'kinda'], default: 'true' },
+    isSmut: { type: Boolean, default: true },
     rating: { type: Number, match: /^(\d+(\.\d{1,2})?)$/, min: 0.0, max: 5.0 },
     isBookClubChoice: { type: Boolean, default: false },
     isQueer: { type: Boolean, default: true },

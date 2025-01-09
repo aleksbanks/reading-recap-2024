@@ -1,0 +1,40 @@
+/* BookList.css */
+.bookTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    max-height: 400px; /* Adjust as necessary to make scrolling visible */
+    overflow-y: auto;
+}
+
+.bookTable th,
+.bookTable td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.bookTable th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    position: sticky;
+    top: 0; /* Stick to the top */
+    z-index: 1; /* Make sure the header stays above the table rows */
+}
+
+.bookTable td input[type="number"],
+.bookTable td input[type="checkbox"] {
+    margin: 0;
+}
+
+.bookTable tr:hover {
+    background-color: #f9f9f9;
+}
+
+.bookTable input[type="number"] {
+    width: 50px;
+}
+
+.bookTable input[type="checkbox"] {
+    cursor: pointer;
+}
