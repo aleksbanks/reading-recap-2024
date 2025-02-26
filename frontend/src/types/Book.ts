@@ -8,7 +8,7 @@ export interface Book {
   format: 'ebook' | 'audio' | 'physical book'
   dateStart: Date
   dateEnd: Date
-  isSmut?: boolean
+  haveAtLeastOneSmutScene?: boolean
   rating?: number
   isBookClubChoice?: boolean
   isQueer?: boolean

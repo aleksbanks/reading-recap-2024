@@ -1,5 +1,5 @@
 import express from 'express'
-import { createBook, getBooks, getBookById, updateBook, deleteBook } from '../controllers/bookController'
+import { createBook, getBooks, getBookById, updateBook, deleteBook, getBooksByYear } from '../controllers/bookController'
 
 const router = express.Router()
 
@@ -8,6 +8,9 @@ router.post('/', createBook)
 
 // Get all books
 router.get('/', getBooks)
+
+// Get books by year
+router.get('/year', getBooksByYear)
 
 // Get a specific book by ID
 router.get('/:id', getBookById)

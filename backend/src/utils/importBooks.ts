@@ -73,6 +73,7 @@ const importCSV = () => {
             await Book.create(book) // Insert the book if it doesn't exist
             console.log(`Book added: ${book.title} by ${book.author}`)
           } else {
+            await Book.updateOne({ title: book.title, author: book.author }, { $set: { year: 2024 } })
             console.log(`Book already exists: ${book.title} by ${book.author}`)
           }
         }
@@ -87,3 +88,4 @@ const importCSV = () => {
 }
 
 importCSV()
+  

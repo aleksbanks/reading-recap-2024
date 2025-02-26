@@ -9,11 +9,13 @@ export interface IBook extends Document {
   format: 'ebook' | 'audio' | 'physical book'
   dateStart: Date
   dateEnd: Date
-  isSmut?: boolean
+  haveAtLeastOneSmutScene?: boolean
   rating?: number
   isBookClubChoice?: boolean
   isQueer?: boolean
   isFirstTimeRead?: boolean
+  year?: number
+  month?: number
 }
 
 const bookSchema: Schema = new Schema(
@@ -31,11 +33,13 @@ const bookSchema: Schema = new Schema(
     },
     dateStart: { type: Date, required: true },
     dateEnd: { type: Date, required: false },
-    isSmut: { type: Boolean, default: true },
+    haveAtLeastOneSmutScene: { type: Boolean, default: false },
     rating: { type: Number, match: /^(\d+(\.\d{1,2})?)$/, min: 0.0, max: 5.0 },
     isBookClubChoice: { type: Boolean, default: false },
     isQueer: { type: Boolean, default: true },
-    isFirstTimeRead: { type: Boolean, default: true }
+    isFirstTimeRead: { type: Boolean, default: true },
+    year: { type: Number, required: true },
+    month: { type: Number, required: true }
   },
   {
     timestamps: true

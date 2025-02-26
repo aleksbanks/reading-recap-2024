@@ -22,6 +22,17 @@ export const getBooks = async (req: Request, res: Response) => {
   }
 }
 
+// Get books by year
+export const getBooksByYear = async (req: Request, res: Response) => {
+  try {
+    const year = parseInt(req.query.year as string)
+    const books: IBook[] = await Book.find({ year: year })
+    res.json(books)
+  } catch (err) {
+    res.status(500).json({ error: (err as Error).message })
+  }
+}
+
 // Get a specific book by ID
 export const getBookById = async (req: Request, res: Response) => {
   try {
