@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { setYear, selectYear } from '../redux/yearSlice'
+import { setYear } from '../redux/selectedYear/yearSlice'
+import { selectSelectedYear } from '../redux/selectedYear/selectors'
 
 export function YearSelector() {
-  const selectedYear = useSelector(selectYear)
+  const selectedYear = useSelector(selectSelectedYear)
   const dispatch = useDispatch()
 
   const currentYear = new Date().getFullYear()

@@ -3,9 +3,12 @@ import { fetchBooks } from '../api/getBooks.ts'
 import { Book } from '../types/Book.ts'
 import { updateBook } from '../api/updateBook.ts'
 import styles from './styles.module.css'
-import { useSelector } from 'react-redux'
-import { selectSelectedYear } from '../redux/selectedYear/selectors'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectSelectedYear } from '../redux/selectedYear/selectors.ts'
+import { selectIsModalOpen } from '../redux/modal/selectors.ts'
+import { openModal, closeModal } from '../redux/modal/modalSlice.ts'
 import { BookStats } from './BookStats'
+import { AddBookModal } from './AddBookModal'
 
 const TABLE_HEADERS = [
   'Title',
@@ -14,7 +17,6 @@ const TABLE_HEADERS = [
   'Pages',
   'Date Start',
   'Date End',
-  'Genres',
   'Language',
   'Format',
   'Has Smut Scenes',
@@ -24,6 +26,8 @@ const TABLE_HEADERS = [
 ]
 
 export const BookList = () => {
+  const dispatch = useDispatch()
+  const isModalOpen = useSelector(selectIsModalOpen)
   const selectedYear = useSelector(selectSelectedYear)
 
   const {
@@ -72,87 +76,97 @@ export const BookList = () => {
 
   return (
     <>
-      {books && <BookStats books={books} />}
-      <hr />
+      {books && Boolean(books.length) ? (
+        <>
+          <BookStats books={books} />
+          <hr />
+          <button onClick={() => dispatch(openModal())}>Add New Book</button>
+          <table className={styles.bookTable}>
+            <thead>
+              <tr>
+                {TABLE_HEADERS.map((header) => (
+                  <th key={header}>{header}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {books?.map((book: Book) => (
+                <tr key={book._id}>
+                  <td>{book.title}</td>
+                  <td>{book.author}</td>
+                  <td>
+                    <input
+                      type='number'
+                      value={book.rating || ''}
+                      onChange={(e) => {
+                        const updatedBook = { ...book, rating: parseFloat(e.target.value) }
+                        mutation.mutate(updatedBook) // Update rating
+                      }}
+                    />
+                  </td>
+                  <td>{book.pages}</td>
+                  <td>{book.dateStart ? new Date(book.dateStart).toLocaleDateString() : ''}</td>
+                  <td>{book.dateEnd ? new Date(book.dateEnd).toLocaleDateString() : ''}</td>
+                  <td>
+                    <select
+                      value={book.language || 'English'}
+                      onChange={(e) => handleSelectChange(book._id, 'language', e.target.value)}>
+                      <option value='English'>English</option>
+                      <option value='Russian'>Russian</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select
+                      value={book.format || 'ebook'}
+                      onChange={(e) => handleSelectChange(book._id, 'format', e.target.value)}>
+                      <option value='ebook'>eBook</option>
+                      <option value='audio'>Audio</option>
+                      <option value='physical book'>Physical Book</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input
+                      type='checkbox'
+                      checked={book.haveAtLeastOneSmutScene}
+                      onChange={() =>
+                        handleCheckboxChange(book._id, 'haveAtLeastOneSmutScene', !book.haveAtLeastOneSmutScene)
+                      }
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type='checkbox'
+                      checked={book.isBookClubChoice || false}
+                      onChange={() => handleCheckboxChange(book._id, 'isBookClubChoice', !book.isBookClubChoice)}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type='checkbox'
+                      checked={book.isQueer || false}
+                      onChange={() => handleCheckboxChange(book._id, 'isQueer', !book.isQueer)}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type='checkbox'
+                      checked={book.isFirstTimeRead || false}
+                      onChange={() => handleCheckboxChange(book._id, 'isFirstTimeRead', !book.isFirstTimeRead)}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      ) : (
+        <div>
+          <p>No books found. Add your first book!</p>
+          <button onClick={() => dispatch(openModal())}>Add Book</button>
+        </div>
+      )}
 
-      <table className={styles.bookTable}>
-        <thead>
-          <tr>
-            {TABLE_HEADERS.map((header) => (
-              <th key={header}>{header}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {books?.map((book: Book) => (
-            <tr key={book._id}>
-              <td>{book.title}</td>
-              <td>{book.author}</td>
-              <td>
-                <input
-                  type='number'
-                  value={book.rating || ''}
-                  onChange={(e) => {
-                    const updatedBook = { ...book, rating: parseFloat(e.target.value) }
-                    mutation.mutate(updatedBook) // Update rating
-                  }}
-                />
-              </td>
-              <td>{book.pages}</td>
-              <td>{new Date(book.dateStart).toLocaleDateString()}</td>
-              <td>{new Date(book.dateEnd).toLocaleDateString()}</td>
-              <td>{book.genres.join(', ')}</td>
-              <td>
-                <select
-                  value={book.language || 'English'}
-                  onChange={(e) => handleSelectChange(book._id, 'language', e.target.value)}>
-                  <option value='English'>English</option>
-                  <option value='Russian'>Russian</option>
-                </select>
-              </td>
-              <td>
-                <select
-                  value={book.format || 'ebook'}
-                  onChange={(e) => handleSelectChange(book._id, 'format', e.target.value)}>
-                  <option value='ebook'>eBook</option>
-                  <option value='audio'>Audio</option>
-                  <option value='physical book'>Physical Book</option>
-                </select>
-              </td>
-              <td>
-                <input
-                  type='checkbox'
-                  checked={book.haveAtLeastOneSmutScene}
-                  onChange={() =>
-                    handleCheckboxChange(book._id, 'haveAtLeastOneSmutScene', !book.haveAtLeastOneSmutScene)
-                  }
-                />
-              </td>
-              <td>
-                <input
-                  type='checkbox'
-                  checked={book.isBookClubChoice || false}
-                  onChange={() => handleCheckboxChange(book._id, 'isBookClubChoice', !book.isBookClubChoice)}
-                />
-              </td>
-              <td>
-                <input
-                  type='checkbox'
-                  checked={book.isQueer || false}
-                  onChange={() => handleCheckboxChange(book._id, 'isQueer', !book.isQueer)}
-                />
-              </td>
-              <td>
-                <input
-                  type='checkbox'
-                  checked={book.isFirstTimeRead || false}
-                  onChange={() => handleCheckboxChange(book._id, 'isFirstTimeRead', !book.isFirstTimeRead)}
-                />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <AddBookModal isOpen={isModalOpen} onClose={() => dispatch(closeModal())} />
     </>
   )
 }

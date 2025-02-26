@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from './store';
 
 const yearSlice = createSlice({
   name: 'year',
@@ -10,5 +9,4 @@ const yearSlice = createSlice({
 });
 
 export const { setYear } = yearSlice.actions;
-export const selectYear = (state: RootState) => state.year;
 export default yearSlice.reducer; 

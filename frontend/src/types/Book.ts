@@ -6,11 +6,13 @@ export interface Book {
   genres: string[]
   language: string
   format: 'ebook' | 'audio' | 'physical book'
-  dateStart: Date
-  dateEnd: Date
+  dateStart?: string | Date | null
+  dateEnd?: string | Date | null
   haveAtLeastOneSmutScene?: boolean
   rating?: number
   isBookClubChoice?: boolean
   isQueer?: boolean
   isFirstTimeRead?: boolean
+  year: number
+  month: number
 }
