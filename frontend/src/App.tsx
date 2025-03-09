@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Provider } from 'react-redux'
 import { store } from './redux/store.ts'
 import { BookList } from './components/BookList.tsx'
-import { YearSelector } from './components/YearSelector'
+import { YearSelector } from './components/YearSelector/YearSelector.tsx'
 
 const queryClient = new QueryClient()
 

@@ -1,0 +1,22 @@
+.starRating {
+  display: inline-flex;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.star {
+  cursor: pointer;
+  font-size: 24px;
+  color: var(--color-beige);
+  text-shadow: 0 0 1px var(--color-green-light);
+  transition: color 0.2s, transform 0.2s;
+}
+
+.star.filled {
+  color: var(--color-yellow);
+  text-shadow: 0 0 1px var(--color-green-darker);
+}
+
+.star:hover {
+  transform: scale(1.2);
+} 
