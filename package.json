@@ -1,8 +1,12 @@
 {
   "scripts": {
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "start:backend": "cd backend && npm run dev",
+    "start:frontend": "cd frontend && npm run dev",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\""
   },
   "devDependencies": {
-    "prettier": "^3.4.2"
+    "prettier": "^3.4.2",
+    "concurrently": "^9.1.2"
   }
 }
