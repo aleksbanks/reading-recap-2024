@@ -67,7 +67,7 @@ export const BookTable = ({ books }: Props) => {
       <tbody>
         {books?.map((book: Book) => (
           <tr key={book._id}>
-            <td>{book.title}</td>
+            <td className={styles.title}>{book.title}</td>
             <td>{book.author}</td>
             <td>
               <StarRating
