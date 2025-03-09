@@ -5,9 +5,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { selectSelectedYear } from '../redux/selectedYear/selectors.ts'
 import { selectIsModalOpen } from '../redux/modal/selectors.ts'
 import { openModal, closeModal } from '../redux/modal/modalSlice.ts'
-import { BookStats } from './BookStats'
-import { AddBookModal } from './AddBookModal'
-import { BookTable } from './BookTable.tsx'
+import { BookStats } from './BookStats/BookStats.tsx'
+import { AddBookModal } from './AddBookModal/AddBookModal.tsx'
+import { BookTable } from './BookTable/BookTable.tsx'
 
 export const BookList = () => {
   const dispatch = useDispatch()

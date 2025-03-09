@@ -1,8 +1,8 @@
-import { updateBook } from '../api/updateBook'
-import { Book } from '../types/Book'
+import { updateBook } from '../../api/updateBook'
+import { Book } from '../../types/Book'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import styles from './styles.module.css'
-import { StarRating } from './StarRating'
+import styles from './BookTable.module.css'
+import { StarRating } from '../StarRating/StarRating'
 
 type Props = {
   books: Book[]

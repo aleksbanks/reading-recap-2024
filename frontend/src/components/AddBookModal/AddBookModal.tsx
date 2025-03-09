@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Book } from '../types/Book'
+import { Book } from '../../types/Book'
 import styles from './styles.module.css'
-import { selectSelectedYear } from '../redux/selectedYear/selectors'
+import { selectSelectedYear } from '../../redux/selectedYear/selectors'
 import { useSelector } from 'react-redux'
-import { StarRating } from './StarRating'
-import { createBook } from '../api/createBook'
+import { StarRating } from '../StarRating/StarRating'
+import { createBook } from '../../api/createBook'
 
 interface AddBookModalProps {
   isOpen: boolean
@@ -171,51 +171,54 @@ export const AddBookModal = ({ isOpen, onClose }: AddBookModalProps) => {
               </select>
             </div>
 
-            <div className={styles.checkboxGroup}>
-              <label>
-                <input
-                  type='checkbox'
-                  checked={newBook.haveAtLeastOneSmutScene}
-                  onChange={(e) => setNewBook({ ...newBook, haveAtLeastOneSmutScene: e.target.checked })}
-                />
-                Has Smut Scenes
-              </label>
-            </div>
+            <div className={styles.checkboxs}>
+              <div className={styles.checkboxGroup}>
+                <label>
+                  <input
+                    type='checkbox'
+                    checked={newBook.haveAtLeastOneSmutScene}
+                    onChange={(e) => setNewBook({ ...newBook, haveAtLeastOneSmutScene: e.target.checked })}
+                  />
+                  Has Smut Scenes
+                </label>
+              </div>
 
-            <div className={styles.checkboxGroup}>
-              <label>
-                <input
-                  type='checkbox'
-                  checked={newBook.isBookClubChoice}
-                  onChange={(e) => setNewBook({ ...newBook, isBookClubChoice: e.target.checked })}
-                />
-                Book Club Choice
-              </label>
-            </div>
+              <div className={styles.checkboxGroup}>
+                <label>
+                  <input
+                    type='checkbox'
+                    checked={newBook.isBookClubChoice}
+                    onChange={(e) => setNewBook({ ...newBook, isBookClubChoice: e.target.checked })}
+                  />
+                  Book Club Choice
+                </label>
+              </div>
 
-            <div className={styles.checkboxGroup}>
-              <label>
-                <input
-                  type='checkbox'
-                  checked={newBook.isQueer}
-                  onChange={(e) => setNewBook({ ...newBook, isQueer: e.target.checked })}
-                />
-                Queer
-              </label>
-            </div>
+              <div className={styles.checkboxGroup}>
+                <label>
+                  <input
+                    type='checkbox'
+                    checked={newBook.isQueer}
+                    onChange={(e) => setNewBook({ ...newBook, isQueer: e.target.checked })}
+                  />
+                  Queer
+                </label>
+              </div>
 
-            <div className={styles.checkboxGroup}>
-              <label>
-                <input
-                  type='checkbox'
-                  checked={newBook.isFirstTimeRead}
-                  onChange={(e) => setNewBook({ ...newBook, isFirstTimeRead: e.target.checked })}
-                />
-                First Time Read
-              </label>
+              <div className={styles.checkboxGroup}>
+                <label>
+                  <input
+                    type='checkbox'
+                    checked={newBook.isFirstTimeRead}
+                    onChange={(e) => setNewBook({ ...newBook, isFirstTimeRead: e.target.checked })}
+                  />
+                  First Time Read
+                </label>
+              </div>
             </div>
           </form>
         </div>
+
         <div className={styles.modalActions}>
           <button type='submit' form='addBookForm'>
             Add Book
