@@ -16,6 +16,8 @@ export interface IBook extends Document {
   isFirstTimeRead?: boolean
   year?: number
   month?: number
+  createdAt: Date
+  updatedAt?: Date
 }
 
 const bookSchema: Schema = new Schema(
@@ -39,7 +41,9 @@ const bookSchema: Schema = new Schema(
     isQueer: { type: Boolean, default: true },
     isFirstTimeRead: { type: Boolean, default: true },
     year: { type: Number, required: true },
-    month: { type: Number, required: true }
+    month: { type: Number, required: true },
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now }
   },
   {
     timestamps: true

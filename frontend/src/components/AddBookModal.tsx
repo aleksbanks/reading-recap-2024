@@ -76,8 +76,6 @@ export const AddBookModal = ({ isOpen, onClose }: AddBookModalProps) => {
           <form
             id='addBookForm'
             onSubmit={(e) => {
-              console.log('submiting')
-
               e.preventDefault()
               const bookWithDates = {
                 ...newBook,

@@ -27,7 +27,8 @@ export const getBooksByYear = async (req: Request, res: Response) => {
   try {
     const year = parseInt(req.query.year as string)
     const books: IBook[] = await Book.find({ year: year })
-    res.json(books)
+    const sortedByCreatedAt = books.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+    res.json(sortedByCreatedAt)
   } catch (err) {
     res.status(500).json({ error: (err as Error).message })
   }
