@@ -13,6 +13,7 @@ A full-stack application to track and visualize your reading habits throughout t
 ## 🛠️ Tech Stack
 
 ### 🎨 Frontend
+
 - ⚛️ React
 - 🗂️ Redux for state management
 - 🔄 React Query for data fetching
@@ -20,6 +21,7 @@ A full-stack application to track and visualize your reading habits throughout t
 - 🎨 CSS Modules for styling
 
 ### 🔧 Backend
+
 - 🟢 Node.js
 - 🚀 Express.js
 - 🍃 MongoDB with Mongoose
@@ -28,12 +30,14 @@ A full-stack application to track and visualize your reading habits throughout t
 ## ⚡ Installation
 
 ### 1️⃣ Clone the repository:
+
 ```bash
- git clone https://github.com/yourusername/reading-recap.git
+ git clone https://github.com/aleksbanks/reading-recap.git
  cd reading-recap
 ```
 
 ### 2️⃣ Install dependencies:
+
 ```bash
 # 📦 Install root dependencies
 npm install
@@ -48,6 +52,7 @@ npm install
 ```
 
 ### 3️⃣ Setup MongoDB Atlas (Cloud)
+
 - 🏗️ Create a MongoDB Atlas account
 - 🚀 Create a new cluster (the free tier works well for development)
 - 🔑 Set up database access:
@@ -62,13 +67,16 @@ npm install
   - Copy the provided connection string
 
 ### 4️⃣ Create a `.env` file in the backend directory with the following:
+
 ```
 PORT=5002
 MONGO_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/reading-recap?retryWrites=true&w=majority
 ```
 
 ### ✅ Verifying MongoDB Connection
+
 To verify your MongoDB connection is working correctly:
+
 - ▶️ Start your backend server
 - 🖥️ Check the console for the message: `Connected to MongoDB`
 - ❌ If you encounter connection errors, verify:
@@ -78,6 +86,7 @@ To verify your MongoDB connection is working correctly:
   - Your database user credentials are correct
 
 ### 5️⃣ Start the application
+
 ```bash
 # 🚀 From the root directory
 npm start
@@ -88,3 +97,4 @@ npm start
 
 # 📂 Backend (from backend directory)
 npm start
+```
