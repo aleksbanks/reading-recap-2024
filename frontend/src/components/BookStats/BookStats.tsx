@@ -164,14 +164,20 @@ export const BookStats = ({ books }: BookStatsProps) => {
             <div className={styles.statCard}>
               <h3>📏 Longest Book:</h3>
               <div className={styles.bookInfo}>
-                <div className={styles.bookTitle}>{stats.longestBook?.title}</div>
+                <div className={styles.bookTitle}>
+                  {stats.longestBook?.title ? stats.longestBook?.title : 'No longest book found'}
+                  {stats.longestBook?.author ? ` (${stats.longestBook?.author})` : ''}
+                </div>
                 <div className={styles.bookPages}>{stats.longestBook?.pages} pages</div>
               </div>
             </div>
             <div className={styles.statCard}>
               <h3>🔍 Shortest Book:</h3>
               <div className={styles.bookInfo}>
-                <div className={styles.bookTitle}>{stats.shortestBook?.title}</div>
+                <div className={styles.bookTitle}>
+                  {stats.shortestBook?.title ? stats.shortestBook?.title : 'No shortest book find'}
+                  {stats.shortestBook?.author ? ` (${stats.shortestBook?.author})` : ''}
+                </div>
                 <div className={styles.bookPages}>{stats.shortestBook?.pages} pages</div>
               </div>
             </div>
