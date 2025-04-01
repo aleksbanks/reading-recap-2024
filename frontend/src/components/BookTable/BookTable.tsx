@@ -3,25 +3,11 @@ import { Book } from '../../types/Book'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import styles from './BookTable.module.css'
 import { StarRating } from '../StarRating/StarRating'
+import { TABLE_HEADERS } from './constants'
 
 type Props = {
   books: Book[]
 }
-
-const TABLE_HEADERS = [
-  'Title',
-  'Author',
-  'Rating',
-  'Pages',
-  'Date Start',
-  'Date End',
-  'Language',
-  'Format',
-  'Has Smut Scenes',
-  'Book Club Choice',
-  'Queer',
-  'First Time Read'
-]
 
 export const BookTable = ({ books }: Props) => {
   const queryClient = useQueryClient()
