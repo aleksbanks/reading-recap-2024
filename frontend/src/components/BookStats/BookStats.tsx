@@ -27,7 +27,7 @@ export const BookStats = ({ books }: BookStatsProps) => {
     shortestBook: books.reduce((prev, curr) => (curr.pages < prev.pages ? curr : prev), books[0])
   }
 
-  const percentage = (count: number) => ((count / (stats.totalBooks || 1)) * 100).toFixed(2)
+  const percentage = (count: number) => ((count / (stats.totalBooks || 1)) * 100).toFixed()
 
   return (
     <section className={styles.statsSection}>
@@ -46,9 +46,30 @@ export const BookStats = ({ books }: BookStatsProps) => {
               <h3>📄 Total Pages</h3>
               <div className={styles.statValue}>{stats.totalPages}</div>
             </div>
+          </div>
+          <div className={styles.statsOverview}>
             <div className={styles.statCard}>
               <h3>⭐ Average Rating</h3>
               <div className={styles.statValue}>{(stats.totalRating / (stats.totalBooks || 1)).toFixed(1)}</div>
+            </div>
+            <div className={styles.statCard}>
+              <h3>📖 Average Pages</h3>
+              <div className={styles.statValue}>{Math.round(stats.totalPages / (stats.totalBooks || 1))}</div>
+            </div>
+            <div className={styles.statCard}>
+              <h3>📅 Average Days to Finish a Book</h3>
+              <div className={styles.statValue}>
+                {Math.round(
+                  books.reduce((sum, book) => {
+                    if (book.dateStart && book.dateEnd) {
+                      const start = new Date(book.dateStart)
+                      const end = new Date(book.dateEnd)
+                      return sum + Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24))
+                    }
+                    return sum
+                  }, 0) / (books.filter((book) => book.dateStart && book.dateEnd).length || 1)
+                )}
+              </div>
             </div>
           </div>
 
