@@ -1,11 +1,12 @@
-import { useState } from 'react'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useState, useEffect, useRef } from 'react'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Book } from '../../types/Book'
 import styles from './styles.module.css'
 import { selectSelectedYear } from '../../redux/selectedYear/selectors'
 import { useSelector } from 'react-redux'
 import { StarRating } from '../StarRating/StarRating'
 import { createBook } from '../../api/createBook'
+import { fetchAuthors, Author } from '../../api/getAuthors'
 
 interface AddBookModalProps {
   isOpen: boolean
@@ -50,6 +51,17 @@ export const AddBookModal = ({ isOpen, onClose }: AddBookModalProps) => {
     ...initialBook,
     year: selectedYear
   })
+  const [showSuggestions, setShowSuggestions] = useState(false)
+  const suggestionsRef = useRef<HTMLDivElement>(null)
+
+  const { data: authors = [] } = useQuery({
+    queryKey: ['authors'],
+    queryFn: fetchAuthors
+  })
+
+  const filteredAuthors = authors.filter((author) =>
+    author.name.toLowerCase().includes(newBook.author?.toLowerCase() || '')
+  )
 
   const handleClose = () => {
     setNewBook({ ...initialBook, year: selectedYear })
@@ -65,6 +77,24 @@ export const AddBookModal = ({ isOpen, onClose }: AddBookModalProps) => {
       handleClose()
     }
   })
+
+  const handleAuthorFromListClick = (author: Author) => {
+    setNewBook({ ...newBook, author: author.name })
+    setShowSuggestions(false)
+  }
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (suggestionsRef.current && !suggestionsRef.current.contains(event.target as Node)) {
+        setShowSuggestions(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   if (!isOpen) return null
 
@@ -101,12 +131,25 @@ export const AddBookModal = ({ isOpen, onClose }: AddBookModalProps) => {
 
             <div className={styles.formGroup}>
               <label>Author:</label>
-              <input
-                type='text'
-                value={newBook.author}
-                onChange={(e) => setNewBook({ ...newBook, author: e.target.value })}
-                required
-              />
+              <div className={styles.autocompleteContainer} ref={suggestionsRef}>
+                <input
+                  type='text'
+                  value={newBook.author}
+                  onChange={(e) => setNewBook({ ...newBook, author: e.target.value })}
+                  onFocus={() => setShowSuggestions(true)}
+                  required
+                />
+                {showSuggestions && filteredAuthors.length > 0 && (
+                  <ul className={styles.suggestionsList}>
+                    {filteredAuthors.map((author) => (
+                      <li key={author.name} onClick={() => handleAuthorFromListClick(author)}>
+                        <span>{author.name}</span>
+                        <span className={styles.authorCount}>{author.count}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </div>
 
             <div className={styles.formGroup}>
