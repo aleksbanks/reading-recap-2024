@@ -75,3 +75,30 @@ export const deleteBook = async (req: Request, res: Response) => {
     res.status(500).json({ error: (err as Error).message })
   }
 }
+
+// Get unique authors with book counts and sort by count
+export const getUniqueAuthors = async (req: Request, res: Response) => {
+  try {
+    const authors = await Book.aggregate([
+      {
+        $group: {
+          _id: '$author',
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          name: '$_id',
+          count: 1
+        }
+      },
+      {
+        $sort: { count: -1, name: 1 }
+      }
+    ])
+    res.json(authors)
+  } catch (err) {
+    res.status(500).json({ error: (err as Error).message })
+  }
+}

@@ -117,6 +117,7 @@ form {
   background-color: var(--color-beige-very-light);
   color: var(--color-green-darker);
   font-family: var(--font-body);
+  box-sizing: border-box;
 }
 
 .formGroup input:focus,
@@ -146,5 +147,62 @@ form {
   width: auto;
   cursor: pointer;
   accent-color: var(--color-green-medium);
+}
+
+.autocompleteContainer {
+  position: relative;
+  width: 100%;
+}
+
+.suggestionsList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: var(--color-beige-light);
+  border: 1px solid var(--color-green-light);
+  border-radius: 4px;
+  margin-top: 4px;
+  padding: 0;
+  list-style: none;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.suggestionsList li {
+  padding: 8px 12px;
+  cursor: pointer;
+  color: var(--color-green-dark);
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.suggestionsList li:hover {
+  background-color: var(--color-beige);
+}
+
+.authorCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  background-color: var(--color-green-medium);
+  color: var(--color-beige-light);
+  border-radius: 9px;
+  font-size: 10px;
+  font-weight: var(--font-weight-medium);
+  flex-shrink: 0;
 }
 
