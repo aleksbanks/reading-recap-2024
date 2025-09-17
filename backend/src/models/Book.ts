@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose'
 
 export interface IBook extends Document {
-  title: string
+  title: any
   author: string
   pages: number
   genres: string[]

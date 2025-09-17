@@ -1,0 +1,8 @@
+{
+  "reviewers": ["aleksbanks"],
+  "enableAutoAssign": true,
+  "enableReassign": true,
+  "minReviewers": 1,
+  "maxReviewers": 2,
+  "reviewMessage": "Please review this PR"
+}
